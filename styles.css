@@ -122,10 +122,12 @@ p {
 
 /* Style for resume icon */
 .resume-icon {
-    width: 20px;
+    width: 40px;  /* Increase the width */
+    height: 40px; /* Increase the height to keep it proportionate */
     margin-right: 10px;
     vertical-align: middle;
 }
+
 
 /* Enhanced button animation */
 .download-resume {

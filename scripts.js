@@ -1,12 +1,21 @@
 // Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
-        targetSection.scrollIntoView({ behavior: 'smooth' });
+        const href = this.getAttribute('href');
+
+        // Check if the link is an internal section (starts with "#")
+        if (href.startsWith("#")) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        // Else, let it navigate normally (for external pages like index.html)
     });
 });
+
 
 // Hover effect interactions for links
 document.querySelectorAll('.hover-link').forEach(link => {

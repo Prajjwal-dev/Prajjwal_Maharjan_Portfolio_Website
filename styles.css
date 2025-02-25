@@ -321,3 +321,71 @@ p {
     color: #e67e22;
     transform: scale(1.1);
 }
+
+/* Certificate Section */
+.certificate-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.certificate-card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    border: 2px solid #f39c12;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+    transition: transform 0.3s ease-in-out;
+}
+
+.certificate-preview {
+    width: 100%; /* Ensures the image takes full width of the card */
+    max-width: 400px; /* Adjust this value to increase/decrease the image size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.certificate-preview:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+}
+
+.certificate-card h3 {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.download-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #f39c12;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.download-button:hover {
+    background-color: #e67e22;
+    transform: translateY(-3px);
+}
+
+.pdf-preview {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pdf-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+}

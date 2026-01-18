@@ -8,11 +8,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "copy-assets": "node scripts/copy-assets.cjs",
     "generate-cert-data": "node scripts/generate-cert-data.cjs",
     "prepare-assets": "npm run copy-assets && npm run generate-cert-data"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

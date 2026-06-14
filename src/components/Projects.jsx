@@ -106,13 +106,13 @@ const projects = [
     link: "https://cinequest432.netlify.app/",
     category: "Web App"
   },
-  {
+    {
     id: 14,
-    title: "BQI",
-    desc: "BQI - A comprehensive business quality improvement tool.",
-    img: "/assets/BQI.png",
-    link: "https://github.com/bipin-thapa01/fair-2026",
-    category: "Web App"
+    title: "BridgeGuard",
+    desc: "BridgeGuard - An AI-powered bridge monitoring, disaster prediction, and evacuation management system that analyzes real-time sensor data to assess structural health, predict risks, and support emergency response decisions.",
+    img: "/assets/bridgeguard.png",
+    link: "https://github.com/Kodedristi-Software/national-ai-hackathon-2026-404-found",
+    category: "AI/ML Project"
   },
   {
     id: 15,

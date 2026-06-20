@@ -64,7 +64,7 @@ export default function Contact(){
                 <span>{copied ? 'Copied!' : 'Copy'}</span>
               </button>
             </div>
-            {copied && <div className="copy-toast">📋 Email copied to clipboard!</div>}
+            {copied && <div className="copy-toast">Email copied to clipboard</div>}
           </div>
 
           {/* Social Links Card */}
@@ -111,22 +111,22 @@ export default function Contact(){
           <div className="availability">
             <span className="availability-label">Available for:</span>
             <div className="availability-tags">
-              <span className="tag">💼 Freelance</span>
-              <span className="tag">🏢 Full-time</span>
-              <span className="tag">🌍 Remote</span>
-              <span className="tag">🤝 Collaboration</span>
+              <span className="tag">Freelance</span>
+              <span className="tag">Full-time</span>
+              <span className="tag">Remote</span>
+              <span className="tag">Collaboration</span>
             </div>
           </div>
         </div>
 
         <div className="contact-footer">
           <div className="footer-content">
-            <span className="location">📍 Based in Kathmandu, Nepal</span>
+            <span className="location">Based in Kathmandu, Nepal</span>
             <span className="separator">•</span>
-            <span className="remote">🌍 Open to remote opportunities worldwide</span>
+            <span className="remote">Open to remote opportunities worldwide</span>
           </div>
           <div className="footer-response-time">
-            <span className="response-time">⏱️ Usually replies within a few hours</span>
+            <span className="response-time">Usually replies within a few hours</span>
           </div>
         </div>
       </div>

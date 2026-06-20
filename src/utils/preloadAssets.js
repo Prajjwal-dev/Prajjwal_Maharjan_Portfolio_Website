@@ -2,7 +2,7 @@
 
 // List of all images to preload
 const imagesToPreload = [
-  '/assets/prajjwal.jpg',
+  '/assets/prajjwal.png',
   '/assets/Gemini.PNG',
   '/assets/copilot.PNG',
   '/assets/1.png',

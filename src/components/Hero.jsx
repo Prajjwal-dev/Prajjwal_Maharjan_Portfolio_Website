@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 export default function Hero(){
-  const full = "Hi, I'm Prajjwal — Aspiring Software Engineer"
+  const full = "Hi, I'm Prajjwal - Aspiring Software Engineer"
   const [text, setText] = useState('')
   const [openIdx, setOpenIdx] = useState(null)
   const [hoveredCard, setHoveredCard] = useState(null)
@@ -43,8 +43,8 @@ export default function Hero(){
       title: 'Full Stack Development',
       description: 'Building responsive web apps with modern stacks, APIs, and deployments.',
       tags: ['React', 'Node.js', 'Python', 'MongoDB', 'Springboot Java'],
-      expandedContent: 'I build end-to-end web applications — from REST APIs and database models to polished UI and deployment pipelines.',
-      badge: '⚡ 3+ years experience',
+      expandedContent: 'I build end-to-end web applications, from REST APIs and database models to polished UI and deployment pipelines.',
+      badge: 'Built through hands-on projects',
       icon: (
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M8 17L3 12l5-5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -60,7 +60,7 @@ export default function Hero(){
       description: 'Modeling and prototyping ML systems and AI integrations.',
       tags: ['Python', 'TensorFlow', 'OpenAI', 'NLP', 'PyTorch'],
       expandedContent: 'I experiment with model prototyping, lightweight inference, and integrating ML features into products.',
-      badge: '🤖 5+ AI projects',
+      badge: 'Learning by prototyping',
       icon: (
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor"/>
@@ -79,7 +79,7 @@ export default function Hero(){
       description: 'Analytics, visualization, and data-driven solutions.',
       tags: ['Pandas', 'NumPy', 'Matplotlib', 'SQL', 'Tableau'],
       expandedContent: 'I analyze datasets, build visualizations, and prototype insights to help products make smarter decisions.',
-      badge: '📊 10+ analyses completed',
+      badge: 'Curious about product insights',
       icon: (
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
@@ -93,7 +93,7 @@ export default function Hero(){
   ]
 
   return (
-    <section className="hero">
+    <section className="hero" id="home">
       {/* Animated background elements */}
       <div className="hero-bg">
         <div className="gradient-sphere"></div>
@@ -104,10 +104,9 @@ export default function Hero(){
       <div className="container hero-grid">
         {/* Left Side - Hero Content */}
         <div className="hero-content">
-          {/* Greeting Badge */}
           <div className="greeting-badge">
-            <span className="wave">👋</span>
-            <span className="greeting-text">Welcome to my portfolio</span>
+            <span className="wave">Aspiring Engineer</span>
+            <span className="greeting-text">Building real-world solutions</span>
             <span className="badge-dot"></span>
           </div>
 
@@ -125,9 +124,9 @@ export default function Hero(){
             {!isMobile && (
               <div className="tagline-inline">
                 <span>Full Stack Developer</span>
-                <span className="separator">•</span>
+                <span className="separator">/</span>
                 <span>AI Enthusiast</span>
-                <span className="separator">•</span>
+                <span className="separator">/</span>
                 <span>Data Explorer</span>
               </div>
             )}
@@ -161,7 +160,7 @@ export default function Hero(){
         <div className="hero-image-container">
           <div className="profile-card">
             <div className="profile-image-wrapper">
-              <img src="/assets/prajjwal.jpg" alt="Prajjwal Maharjan" className="profile-image" />
+              <img src="/assets/prajjwal.png" alt="Prajjwal Maharjan" className="profile-image" />
               <div className="image-glow"></div>
             </div>
             
@@ -169,14 +168,6 @@ export default function Hero(){
             <div className="status-badge">
               <span className="status-dot pulse"></span>
               <span>Open to work</span>
-            </div>
-            
-            {/* Experience Badge - Top Right - FIXED VISIBILITY */}
-            <div className="experience-badge-wrapper">
-              <div className="experience-badge">
-                <div className="exp-number">3+</div>
-                <div className="exp-text">Years of<br />Experience</div>
-              </div>
             </div>
           </div>
         </div>
@@ -251,7 +242,7 @@ export default function Hero(){
             <div className="stat-block">
               <div className="stat-number">50+</div>
               <div className="stat-label">Certificates</div>
-              <div className="stat-trend positive">↑ +12 this year</div>
+              <div className="stat-trend positive">+12 this year</div>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-block">
@@ -262,7 +253,7 @@ export default function Hero(){
             <div className="stat-divider"></div>
             <div className="stat-block">
               <div className="stat-number">Open</div>
-              <div className="stat-label">to collaborate</div>
+              <div className="stat-label">to intern</div>
               <div className="availability-indicator">
                 <span className="dot"></span>
                 <span>Available now</span>
@@ -392,11 +383,22 @@ export default function Hero(){
         }
 
         .badge-dot {
-          width: 6px;
-          height: 6px;
+          width: 8px;
+          height: 8px;
           background: #10b981;
           border-radius: 50%;
           animation: pulse 2s ease-in-out infinite;
+          display: inline-block;
+          align-self: center;
+          vertical-align: middle;
+          margin-left: 0.35rem;
+          transform: translateY(0);
+        }
+
+        .greeting-text {
+          display: inline-block;
+          line-height: 1;
+          align-self: center;
         }
 
         .hero-title {
@@ -582,39 +584,6 @@ export default function Hero(){
           height: 8px;
           background: #10b981;
           border-radius: 50%;
-        }
-
-        /* Experience Badge - Top Right - FIXED VISIBILITY */
-        .experience-badge-wrapper {
-          position: absolute;
-          top: -15px;
-          right: -15px;
-          z-index: 20;
-        }
-
-        .experience-badge {
-          background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-          border-radius: 20px;
-          padding: 0.8rem 1rem;
-          text-align: center;
-          box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
-          min-width: 100px;
-          backdrop-filter: blur(10px);
-        }
-
-        .exp-number {
-          font-size: 1.8rem;
-          font-weight: 700;
-          color: white;
-          line-height: 1;
-        }
-
-        .exp-text {
-          font-size: 0.7rem;
-          color: white;
-          opacity: 0.95;
-          line-height: 1.3;
-          margin-top: 4px;
         }
 
         /* Expertise Section */
@@ -973,25 +942,6 @@ export default function Hero(){
             max-width: 280px;
           }
 
-          /* FIXED: Better positioning for badges on mobile */
-          .experience-badge-wrapper {
-            top: -12px;
-            right: -12px;
-          }
-
-          .experience-badge {
-            padding: 0.6rem 0.8rem;
-            min-width: 85px;
-          }
-
-          .exp-number {
-            font-size: 1.4rem;
-          }
-
-          .exp-text {
-            font-size: 0.65rem;
-          }
-
           .status-badge {
             font-size: 0.75rem;
             padding: 0.4rem 1rem;
@@ -1012,23 +962,6 @@ export default function Hero(){
             max-width: 260px;
           }
 
-          .experience-badge-wrapper {
-            top: -10px;
-            right: -10px;
-          }
-
-          .experience-badge {
-            padding: 0.5rem 0.7rem;
-            min-width: 75px;
-          }
-
-          .exp-number {
-            font-size: 1.2rem;
-          }
-
-          .exp-text {
-            font-size: 0.6rem;
-          }
         }
       `}</style>
     </section>

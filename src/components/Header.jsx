@@ -1,32 +1,76 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeLink, setActiveLink] = useState('')
+  const [activeLink, setActiveLink] = useState('home')
+  const location = useLocation()
+  const isCertificatePage = location.pathname === '/certificates'
+  const isHomePage = location.pathname === '/'
 
-  // Handle scroll effect
+  // Handle header depth.
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
-      
-      const sections = ['about', 'skills', 'projects', 'contact']
-      const scrollPosition = window.scrollY + 100
-      
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveLink(section)
-            break
-          }
-        }
-      }
     }
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Highlight the section currently passing through the reading area.
+  useEffect(() => {
+    if (isCertificatePage) {
+      setActiveLink('certificates')
+      return
+    }
+
+    if (!isHomePage) {
+      setActiveLink('home')
+      return
+    }
+
+    const ids = ['home', 'about', 'certificates', 'skills', 'projects', 'contact']
+
+    const updateActiveSection = () => {
+      const headerEl = document.querySelector('.site-header')
+      const headerHeight = headerEl ? headerEl.offsetHeight : 80
+
+      const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
+      if (!sections.length) return
+
+      const readingLine = headerHeight + Math.min(window.innerHeight * 0.32, 260)
+      let current = sections[0]
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect()
+
+        if (rect.top <= readingLine && rect.bottom > headerHeight) {
+          current = section
+        }
+      })
+
+      const pageBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      if (pageBottom) {
+        current = sections[sections.length - 1]
+      }
+
+      if (current?.id) setActiveLink((previous) => (previous === current.id ? previous : current.id))
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+    window.addEventListener('hashchange', updateActiveSection)
+
+    updateActiveSection()
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('resize', updateActiveSection)
+      window.removeEventListener('hashchange', updateActiveSection)
+    }
+  }, [isCertificatePage, isHomePage])
 
   // Close mobile nav on resize
   useEffect(() => {
@@ -50,11 +94,11 @@ export default function Header() {
   }, [navOpen])
 
   const navItems = [
-    { href: '/#about', label: 'About', id: 'about', icon: '👤' },
-    { href: '/certificates', label: 'Certificates', external: true, icon: '📜' },
-    { href: '/#skills', label: 'Skills', id: 'skills', icon: '⚡' },
-    { href: '/#projects', label: 'Projects', id: 'projects', icon: '🚀' },
-    { href: '/#contact', label: 'Contact', id: 'contact', icon: '📧' }
+    { href: '/#about', label: 'About', id: 'about'},
+    { href: '/certificates', label: 'Certificates', id: 'certificates'},
+    { href: '/#skills', label: 'Skills', id: 'skills'},
+    { href: '/#projects', label: 'Projects', id: 'projects'},
+    { href: '/#contact', label: 'Contact', id: 'contact'}
   ]
 
   return (
@@ -65,7 +109,7 @@ export default function Header() {
           {/* Logo with Animation */}
           <a className="brand" href="/">
             <div className="brand-icon">
-              <img src="/assets/prajjwal.jpg" alt="Prajjwal" className="logo" />
+              <img src="/assets/prajjwal.png" alt="Prajjwal" className="logo" />
               <div className="logo-ring"></div>
             </div>
             <div className="brand-text">
@@ -75,25 +119,32 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="nav-desktop">
+          {!isCertificatePage && <nav className="nav-desktop">
             <ul>
               {navItems.map((item) => (
                 <li key={item.label}>
-                  <a 
-                    href={item.href} 
-                    className={!item.external && activeLink === item.id ? 'active' : ''}
-                  >
-                    <span className="nav-icon">{item.icon}</span>
-                    <span className="nav-label">{item.label}</span>
-                    <span className="nav-dot"></span>
-                  </a>
+                  {item.href.startsWith('/') && !item.href.includes('#') ? (
+                    <Link to={item.href} className={activeLink === item.id ? 'active' : ''}>
+                      <span className="nav-label">{item.label}</span>
+                      <span className="nav-dot"></span>
+                    </Link>
+                  ) : (
+                    <a href={item.href} className={activeLink === item.id ? 'active' : ''}>
+                      <span className="nav-label">{item.label}</span>
+                      <span className="nav-dot"></span>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
-          </nav>
+          </nav>}
+
+          {isCertificatePage && (
+            <a href="/" className="certificate-back-link">Back to portfolio</a>
+          )}
 
           {/* POLISHED HAMBURGER BUTTON */}
-          <button 
+          {!isCertificatePage && <button 
             className={`hamburger-btn ${navOpen ? 'open' : ''}`} 
             onClick={() => setNavOpen(!navOpen)}
             aria-label="Toggle menu"
@@ -104,24 +155,30 @@ export default function Header() {
               <div className="hamburger-line bottom"></div>
             </div>
             <span className="hamburger-text">{navOpen ? 'Close' : 'Menu'}</span>
-          </button>
+          </button>}
 
           {/* Mobile Overlay with Blur - Only visible when navOpen is true */}
-          <div className={`mobile-overlay ${navOpen ? 'open' : ''}`} onClick={() => setNavOpen(false)}></div>
+          {!isCertificatePage && <div className={`mobile-overlay ${navOpen ? 'open' : ''}`} onClick={() => setNavOpen(false)}></div>}
           
           {/* MOBILE MENU - COMPLETELY HIDDEN UNTIL HAMBURGER CLICKED */}
-          <div className={`mobile-menu ${navOpen ? 'open' : ''}`}>
+          {!isCertificatePage && <div className={`mobile-menu ${navOpen ? 'open' : ''}`}>
             <div className="mobile-menu-header">
               <div className="mobile-avatar">
-                <img src="/assets/prajjwal.jpg" alt="Prajjwal" />
+                <img src="/assets/prajjwal.png" alt="Prajjwal" />
                 <div className="avatar-pulse"></div>
               </div>
               <div className="mobile-user-info">
                 <h3>Prajjwal Maharjan</h3>
                 <p>Full Stack Developer</p>
               </div>
-              <button className="mobile-close-btn" onClick={() => setNavOpen(false)}>
-                ✕
+              <button
+                type="button"
+                className="mobile-close-btn"
+                onClick={() => setNavOpen(false)}
+                aria-label="Close menu"
+              >
+                <span></span>
+                <span></span>
               </button>
             </div>
             
@@ -143,11 +200,17 @@ export default function Header() {
             <ul className="mobile-menu-links">
               {navItems.map((item, index) => (
                 <li key={item.label}>
-                  <a href={item.href} onClick={() => setNavOpen(false)}>
-                    <span className="link-icon">{item.icon}</span>
-                    <span className="link-text">{item.label}</span>
-                    <span className="link-arrow">→</span>
-                  </a>
+                  {item.href.startsWith('/') && !item.href.includes('#') ? (
+                    <Link to={item.href} className={activeLink === item.id ? 'active' : ''} onClick={() => setNavOpen(false)}>
+                      <span className="link-text">{item.label}</span>
+                      <span className="link-arrow">→</span>
+                    </Link>
+                  ) : (
+                    <a href={item.href} className={activeLink === item.id ? 'active' : ''} onClick={() => setNavOpen(false)}>
+                      <span className="link-text">{item.label}</span>
+                      <span className="link-arrow">→</span>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -172,7 +235,7 @@ export default function Header() {
               </div>
               <p>© {new Date().getFullYear()} Prajjwal Maharjan</p>
             </div>
-          </div>
+          </div>}
         </div>
       </header>
 
@@ -183,16 +246,20 @@ export default function Header() {
           top: 0;
           left: 0;
           right: 0;
-          z-index: 1000;
+          width: 100%;
+          z-index: 9999;
           background: rgba(10, 12, 15, 0.85);
           backdrop-filter: blur(10px);
-          transition: all 0.3s ease;
+          transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+          will-change: background, box-shadow;
         }
 
         .site-header.scrolled {
           background: rgba(10, 12, 15, 0.95);
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
+
+        /* No entrance animation: header must remain visible at all times */
 
         .header-glow {
           position: absolute;
@@ -304,7 +371,9 @@ export default function Header() {
           font-weight: 500;
           transition: all 0.3s ease;
           position: relative;
-          padding: 0.5rem 0;
+          padding: 0.55rem 0.85rem;
+          border: 1px solid transparent;
+          border-radius: 8px;
         }
 
         .nav-icon {
@@ -318,7 +387,7 @@ export default function Header() {
 
         .nav-dot {
           position: absolute;
-          bottom: -2px;
+          bottom: 0.25rem;
           left: 50%;
           width: 0;
           height: 2px;
@@ -330,6 +399,8 @@ export default function Header() {
 
         .nav-desktop a:hover {
           color: #ffffff;
+          background: rgba(255, 255, 255, 0.04);
+          border-color: rgba(255, 255, 255, 0.08);
         }
 
         .nav-desktop a:hover .nav-icon {
@@ -341,12 +412,32 @@ export default function Header() {
         }
 
         .nav-desktop a.active {
-          color: #3b82f6;
+          color: #ffffff;
+          background: rgba(110, 168, 254, 0.12);
+          border-color: rgba(110, 168, 254, 0.34);
+          box-shadow: inset 0 0 0 1px rgba(110, 168, 254, 0.08);
         }
 
         .nav-desktop a.active .nav-dot {
-          width: 100%;
-          background: #3b82f6;
+          width: calc(100% - 1.7rem);
+          background: linear-gradient(90deg, #f5b461, #6ea8fe);
+        }
+
+        .certificate-back-link {
+          color: #94a3b8;
+          text-decoration: none;
+          border: 1px solid rgba(148, 163, 184, 0.24);
+          border-radius: 8px;
+          padding: 0.65rem 0.9rem;
+          font-size: 0.9rem;
+          transition: all 0.2s ease;
+        }
+
+        .certificate-back-link:hover {
+          color: #ffffff;
+          border-color: #f5b461;
+          background: rgba(245, 180, 97, 0.08);
+          transform: translateY(-2px);
         }
 
         /* POLISHED HAMBURGER BUTTON */
@@ -430,7 +521,7 @@ export default function Header() {
           opacity: 0;
           visibility: hidden;
           transition: all 0.3s ease;
-          z-index: 999;
+          z-index: 4999;
         }
 
         .mobile-overlay.open {
@@ -449,7 +540,7 @@ export default function Header() {
           background: linear-gradient(135deg, rgba(10, 12, 15, 0.98) 0%, rgba(15, 17, 21, 0.98) 100%);
           backdrop-filter: blur(20px);
           border-left: 1px solid rgba(59, 130, 246, 0.2);
-          z-index: 1000;
+          z-index: 5001;
           transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           flex-direction: column;
@@ -475,26 +566,41 @@ export default function Header() {
 
         .mobile-close-btn {
           position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
+          top: 1rem;
+          right: 1rem;
           width: 36px;
           height: 36px;
-          border-radius: 50%;
-          background: rgba(59, 130, 246, 0.1);
-          border: 1px solid rgba(59, 130, 246, 0.3);
-          color: #94a3b8;
-          font-size: 1.2rem;
+          border: 1px solid rgba(148, 163, 184, 0.24);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.04);
+          color: #ffffff;
           cursor: pointer;
-          display: flex;
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.2s ease;
+          transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .mobile-close-btn span {
+          position: absolute;
+          width: 16px;
+          height: 2px;
+          border-radius: 2px;
+          background: currentColor;
+        }
+
+        .mobile-close-btn span:first-child {
+          transform: rotate(45deg);
+        }
+
+        .mobile-close-btn span:last-child {
+          transform: rotate(-45deg);
         }
 
         .mobile-close-btn:hover {
-          background: rgba(59, 130, 246, 0.2);
-          color: #3b82f6;
-          border-color: #3b82f6;
+          background: rgba(110, 168, 254, 0.14);
+          border-color: rgba(110, 168, 254, 0.42);
+          transform: translateY(-1px);
         }
 
         .mobile-avatar {
@@ -596,6 +702,7 @@ export default function Header() {
         .mobile-menu-links li:nth-child(3) { transition-delay: 0.15s; }
         .mobile-menu-links li:nth-child(4) { transition-delay: 0.2s; }
         .mobile-menu-links li:nth-child(5) { transition-delay: 0.25s; }
+        .mobile-menu-links li:nth-child(6) { transition-delay: 0.3s; }
 
         .mobile-menu-links a {
           display: flex;
@@ -630,6 +737,21 @@ export default function Header() {
 
         .mobile-menu-links a:hover::before {
           width: 100%;
+        }
+
+        .mobile-menu-links a.active {
+          color: #ffffff;
+          background: rgba(110, 168, 254, 0.12);
+          border-left: 3px solid #f5b461;
+        }
+
+        .mobile-menu-links a.active::before {
+          width: 100%;
+        }
+
+        .mobile-menu-links a.active .link-arrow {
+          opacity: 1;
+          transform: translateX(0);
         }
 
         .link-icon {
@@ -705,6 +827,10 @@ export default function Header() {
             height: 65px;
           }
 
+          .site-header-spacer {
+            height: 65px;
+          }
+
           .brand-icon {
             width: 38px;
             height: 38px;
@@ -750,6 +876,13 @@ export default function Header() {
 
           .mobile-user-info p {
             font-size: 0.75rem;
+          }
+
+          .mobile-close-btn {
+            top: 0.85rem;
+            right: 0.85rem;
+            width: 34px;
+            height: 34px;
           }
         }
 

@@ -49,7 +49,7 @@ export default function App() {
               <main>
                 <Hero />
                 <About />
-                <section className="section container">
+                <section className="section container" id="certificates">
                   <Certificates limit={6} />
                 </section>
                 <section className="section container" id="skills">
@@ -78,7 +78,7 @@ export default function App() {
         /* Content visible after loading */
         .app-content.visible {
           opacity: 1;
-          transform: translateY(0);
+          transform: none;
         }
         
         /* Prevent scrolling while loading */

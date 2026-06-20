@@ -3,92 +3,92 @@ import React, {useRef, useEffect, useState} from 'react'
 const techSkills = [
   { 
     name:'React JS', 
-    pct:88, 
     projects: ['BQI', 'CineQuest', 'Yatra-Z'],
-    description: 'Used in 3 major projects. Building interactive UIs with component-based architecture.',
+    description: 'Building interactive interfaces with reusable components, routing, and API-driven views.',
     projectCount: 3,
-    years: 2
+    level: 'Project-ready',
+    focus: 'Frontend apps'
   },
   { 
     name:'HTML / CSS / JS', 
-    pct:92, 
     projects: ['FlappyVerse', 'Memory Match Game', 'TicTacToe', 'Bookmark Manager', 'DesignSphere'],
-    description: 'Core foundation for all web projects. Semantic HTML, modern CSS, and vanilla JavaScript.',
+    description: 'The base of my web work: layouts, responsive UI, DOM logic, animations, and browser APIs.',
     projectCount: 8,
-    years: 3
+    level: 'Strong foundation',
+    focus: 'Core web'
   },
   { 
     name:'PHP', 
-    pct:75, 
     projects: ['Smart Traffic Management', 'Hamrocanteen', 'Yatra-Z'],
-    description: 'Backend for dynamic web applications. Server-side scripting and database integration.',
+    description: 'Server-side features, form handling, and database-backed pages for practical web apps.',
     projectCount: 3,
-    years: 1.5
+    level: 'Comfortable',
+    focus: 'Backend basics'
   },
   { 
     name:'Python', 
-    pct:85, 
     projects: ['AI Chatbot', 'QR Generator', 'Weather App', 'Data Analytics Projects'],
-    description: '10+ Python projects completed. Scripting, automation, and data processing.',
+    description: 'Automation, data analysis, scripts, small apps, and AI experiments.',
     projectCount: 12,
-    years: 2
+    level: 'Project-ready',
+    focus: 'Automation and AI'
   },
   { 
     name:'Unity', 
-    pct:70, 
     projects: ['PM Kitchen Chaos'],
-    description: 'Game development with C#. 2D/3D game mechanics and physics simulations.',
+    description: 'Game mechanics, level flow, and gameplay experimentation with C#.',
     projectCount: 1,
-    years: 1
+    level: 'Exploring',
+    focus: 'Game prototyping'
   },
   { 
     name:'C#', 
-    pct:75, 
     projects: ['PM Kitchen Chaos', 'Unity Games'],
-    description: 'Game scripting and logic. Object-oriented programming and .NET framework.',
+    description: 'Gameplay scripting, object-oriented logic, and Unity behaviors.',
     projectCount: 2,
-    years: 1.5
+    level: 'Comfortable',
+    focus: 'Unity logic'
   },
   { 
     name:'C++', 
-    pct:70, 
     projects: ['DSA Practice', 'Competitive Programming'],
-    description: 'Data structures implementation. Competitive programming and system-level coding.',
+    description: 'Data structures, algorithms practice, and lower-level programming concepts.',
     projectCount: 5,
-    years: 1.5
+    level: 'Practicing',
+    focus: 'DSA'
   },
   { 
     name:'C', 
-    pct:65, 
     projects: ['System Programming', 'College Projects'],
-    description: 'Foundation in programming. Memory management and procedural programming.',
+    description: 'Programming fundamentals, procedural thinking, and memory basics.',
     projectCount: 4,
-    years: 1
+    level: 'Foundation',
+    focus: 'Core concepts'
   },
   { 
     name:'Java', 
-    pct:75, 
     projects: ['QuickMart', 'College Projects'],
-    description: 'OOP and application development. Spring Boot and desktop applications.',
+    description: 'Object-oriented programming and application structure through college and side projects.',
     projectCount: 2,
-    years: 1.5
+    level: 'Comfortable',
+    focus: 'OOP apps'
   },
   { 
     name:'DSA', 
-    pct:90, 
     projects: ['DSA Visualizer Hub', 'LeetCode 100+ problems'],
-    description: '100+ problems solved. Algorithms, data structures, and problem-solving.',
+    description: 'Problem solving, algorithm patterns, visual explanations, and consistent practice.',
     projectCount: 100,
     isLeetCode: true,
-    years: 1.5
+    level: 'Practicing deeply',
+    focus: 'Problem solving'
   },
   { 
     name:'AI / Data Science', 
-    pct:55, 
-    projects: ['PrajjwalGPT', 'Data Analytics Python'],
-    description: 'Exploring ML and AI concepts. LLMs, data analysis, and model training.',
+    projects: ['PrajjwalGPT', 'Data Analytics Python', 'BridgeGuard'],
+    description: 'LLM experiments, data analysis, model basics, and product-minded AI prototypes.',
     projectCount: 2,
-    years: 0.5
+    level: 'Exploring',
+    focus: 'AI prototypes'
   }
 ]
 
@@ -217,20 +217,6 @@ export default function Skills(){
     }
   }
 
-  const getProgressValue = (skill) => {
-    if (skill.name === 'DSA') {
-      return Math.min(skill.projectCount, 100)
-    }
-    
-    const maxProjects = 12
-    const maxYears = 3
-    
-    const projectScore = (skill.projectCount / maxProjects) * 60
-    const yearsScore = (skill.years / maxYears) * 40
-    
-    return Math.min(Math.round(projectScore + yearsScore), 100)
-  }
-
   return (
     <section className="skills-section" ref={rootRef} onMouseMove={handleMouseMove}>
       {/* Background decoration */}
@@ -245,29 +231,26 @@ export default function Skills(){
           <span className="section-subtitle">My Expertise</span>
           <h2 className="section-title">Technical Skills</h2>
           <div className="title-underline"></div>
-          <p className="section-description">Progress based on real project count and experience</p>
+          <p className="section-description">Skills shown through projects, coursework, and what I am ready to keep improving in an internship.</p>
         </div>
         
-        {/* Legend Cards */}
         <div className="legend-container">
           <div className="legend-item">
             <span className="legend-dot project-dot"></span>
-            <span className="legend-text">Project count based</span>
+            <span className="legend-text">Project proof</span>
           </div>
           <div className="legend-item">
             <span className="legend-dot experience-dot"></span>
-            <span className="legend-text">Years experience</span>
+            <span className="legend-text">Current comfort</span>
           </div>
           <div className="legend-item">
             <span className="legend-dot dsa-dot"></span>
-            <span className="legend-text">Problems solved (DSA)</span>
+            <span className="legend-text">Learning focus</span>
           </div>
         </div>
         
         <div className="skills-grid">
           {techSkills.map((s, index) => {
-            const progressValue = getProgressValue(s)
-            
             return (
               <div 
                 className={`skill-card ${inView ? 'animate' : ''}`}
@@ -283,7 +266,7 @@ export default function Skills(){
                   </div>
                   <div className="skill-title">
                     <h3>{s.name}</h3>
-                    <span className="skill-badge">{s.years} {s.years === 1 ? 'year' : 'years'}</span>
+                    <span className="skill-badge">{s.level}</span>
                   </div>
                 </div>
 
@@ -293,19 +276,12 @@ export default function Skills(){
                     <span className="stat-label">{s.isLeetCode ? 'problems' : 'projects'}</span>
                   </div>
                   <div className="stat">
-                    <span className="stat-value">{progressValue}%</span>
-                    <span className="stat-label">proficiency</span>
+                    <span className="stat-value skill-focus-text">{s.focus}</span>
+                    <span className="stat-label">focus area</span>
                   </div>
                 </div>
 
-                <div className="progress-container">
-                  <div className="progress-bar">
-                    <div 
-                      className={`progress-fill ${s.isLeetCode ? 'dsa' : 'default'}`}
-                      style={{ width: inView ? `${progressValue}%` : '0%' }}
-                    />
-                  </div>
-                </div>
+                <p className="skill-description">{s.description}</p>
 
                 <div className="projects-preview">
                   {s.projects.slice(0, isMobile ? 2 : 3).map(proj => (
@@ -328,8 +304,8 @@ export default function Skills(){
         </div>
         
         <p className="footer-note">
-          <span className="footer-icon">💡</span>
-          Tap any card to view related projects
+          <span className="footer-icon">Note</span>
+          Select any card to view related projects
         </p>
       </div>
 
@@ -344,11 +320,10 @@ export default function Skills(){
           }}
         >
           {techSkills.filter(s => s.name === hoveredSkill).map(s => {
-            const progressValue = getProgressValue(s)
             return (
               <div key={s.name}>
                 <div className="info-card-header">
-                  <span className="info-icon">📌</span>
+                  <span className="info-icon">Skill</span>
                   <h4>{s.name}</h4>
                 </div>
                 <p className="info-description">{s.description}</p>
@@ -358,12 +333,12 @@ export default function Skills(){
                     <span className="info-stat-value">{s.projectCount}</span>
                   </div>
                   <div className="info-stat">
-                    <span className="info-stat-label">Experience</span>
-                    <span className="info-stat-value">{s.years} {s.years === 1 ? 'yr' : 'yrs'}</span>
+                    <span className="info-stat-label">Comfort</span>
+                    <span className="info-stat-value">{s.level}</span>
                   </div>
                   <div className="info-stat">
-                    <span className="info-stat-label">Proficiency</span>
-                    <span className="info-stat-value">{progressValue}%</span>
+                    <span className="info-stat-label">Focus</span>
+                    <span className="info-stat-value">{s.focus}</span>
                   </div>
                 </div>
                 <div className="info-projects">
@@ -642,9 +617,23 @@ export default function Skills(){
           line-height: 1.2;
         }
 
+        .skill-focus-text {
+          font-size: 1rem;
+          color: #f5b461;
+          max-width: 160px;
+        }
+
         .stat-label {
           font-size: 0.8rem;
           color: #94a3b8;
+        }
+
+        .skill-description {
+          color: #94a3b8;
+          font-size: 0.9rem;
+          line-height: 1.6;
+          margin: 0 0 1.2rem;
+          min-height: 58px;
         }
 
         .progress-container {
@@ -769,7 +758,7 @@ export default function Skills(){
 
         .info-stats {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 0.5rem;
           margin-bottom: 1rem;
           background: #151a20;
@@ -794,8 +783,9 @@ export default function Skills(){
 
         .info-stat-value {
           color: #3b82f6;
-          font-size: 1rem;
+          font-size: 0.86rem;
           font-weight: 600;
+          overflow-wrap: anywhere;
         }
 
         .info-projects {

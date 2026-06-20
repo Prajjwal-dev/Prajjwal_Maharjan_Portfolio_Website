@@ -39,6 +39,13 @@ export default function About() {
     'Data Visualization'
   ]
 
+  const learningSignals = [
+    { value: '20+', label: 'Projects built', note: 'Web, AI, games, IoT' },
+    { value: '15+', label: 'Tools explored', note: 'Across coursework and side projects' },
+    { value: '1000+', label: 'Practice hours', note: 'Debugging, building, and improving' },
+    { value: 'Always', label: 'Learning', note: 'Open to mentorship and internships' }
+  ]
+
   return (
     <section id="about" style={{ padding: isMobile ? '60px 15px' : '80px 20px', background: '#0a0c0f' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
@@ -134,7 +141,7 @@ export default function About() {
             </a>
           </div>
 
-          {/* Stats - FIXED: Now properly contained */}
+          {/* Stats */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
@@ -142,85 +149,26 @@ export default function About() {
             paddingTop: '30px',
             borderTop: '1px solid #2d3748'
           }}>
-            {/* Stat 1 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              gap: '8px',
-              background: '#1e2630',
-              padding: '12px 8px',
-              borderRadius: '12px',
-              border: '1px solid #2d3748'
-            }}>
-              <span style={{ fontSize: '1.8rem', color: '#3b82f6' }}>📊</span>
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>20+</div>
-                <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Projects</div>
+            {learningSignals.map((item) => (
+              <div key={item.label} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                textAlign: 'left',
+                gap: '8px',
+                background: '#1e2630',
+                padding: '16px 14px',
+                borderRadius: '8px',
+                border: '1px solid #2d3748',
+                minHeight: '122px'
+              }}>
+                <div>
+                  <div style={{ fontSize: item.value === 'Always' ? '1.25rem' : '1.6rem', fontWeight: 'bold', color: '#3b82f6' }}>{item.value}</div>
+                  <div style={{ fontSize: '0.82rem', color: '#ffffff', fontWeight: 600 }}>{item.label}</div>
+                </div>
+                <div style={{ fontSize: '0.72rem', color: '#94a3b8', lineHeight: 1.4 }}>{item.note}</div>
               </div>
-            </div>
-
-            {/* Stat 2 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              gap: '8px',
-              background: '#1e2630',
-              padding: '12px 8px',
-              borderRadius: '12px',
-              border: '1px solid #2d3748'
-            }}>
-              <span style={{ fontSize: '1.8rem', color: '#3b82f6' }}>💻</span>
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>15+</div>
-                <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Technologies</div>
-              </div>
-            </div>
-
-            {/* Stat 3 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              gap: '8px',
-              background: '#1e2630',
-              padding: '12px 8px',
-              borderRadius: '12px',
-              border: '1px solid #2d3748'
-            }}>
-              <span style={{ fontSize: '1.8rem', color: '#3b82f6' }}>⚡</span>
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>1000+</div>
-                <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Hours of Code</div>
-              </div>
-            </div>
-
-            {/* Stat 4 */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              textAlign: 'center',
-              gap: '8px',
-              background: '#1e2630',
-              padding: '12px 8px',
-              borderRadius: '12px',
-              border: '1px solid #2d3748'
-            }}>
-              <span style={{ fontSize: '1.8rem', color: '#3b82f6' }}>☕</span>
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#3b82f6' }}>∞</div>
-                <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>Coffee</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 // Migrated from certificate.html — each entry maps image -> file
 export const certificates = [
-  { img: '/assets/Gemini.png', title: 'Gemini For Google Workspace', file: '/assets/Prajjwal_Maharjan_Gemini_for_Google_Workspace.pdf' },
+  { img: '/assets/Gemini.PNG', title: 'Gemini For Google Workspace', file: '/assets/Prajjwal_Maharjan_Gemini_for_Google_Workspace.pdf' },
   { img: '/assets/1.png', title: 'Participation of Competitive Coding in KEC', file: '/assets/1.png' },
   { img: '/assets/hamrobazaar.PNG', title: 'Participation in Hamrobazaar Student Partnership Program', file: '/assets/HamroBazaar Programme Certificate.pdf' },
   { img: '/assets/digital_transformation.PNG', title: 'Digital Transformation For Leaders', file: '/assets/Prajjwal Maharjan_Digital_Transformation_For leaders.pdf' },

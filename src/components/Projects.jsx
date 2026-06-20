@@ -8,10 +8,21 @@ const projects = [
     img: "/assets/traffic.png",
     link: "https://github.com/Safal-Shrestha/traffic-management",
     highlight: true,
+    awardLabel: "Gold Medal",
     category: "IoT"
   },
   {
     id: 2,
+    title: "BridgeGuard",
+    desc: "Winner of National AI Hackathon 26. BridgeGuard is an AI-powered system for real-time bridge monitoring, disaster prediction, and evacuation management. It analyzes sensor data to assess structural health, detect risks early, and support fast emergency response decisions.",
+    img: "/assets/bridgeguard.png",
+    link: "https://github.com/Prajjwal-dev/BridgeGuard_frontend",
+    highlight: true,
+    awardLabel: "Hackathon Winner",
+    category: "AI/ML Project"
+  },
+  {
+    id: 3,
     title: "CipherPayroll",
     desc: "Payroll management system for small businesses built in C.",
     img: "/assets/c_logo.png",
@@ -19,7 +30,7 @@ const projects = [
     category: "C/C++"
   },
   {
-    id: 3,
+    id: 4,
     title: "Hamrocanteen",
     desc: "Food ordering platform to streamline cafeteria services.",
     img: "/assets/canteen1.jpeg",
@@ -27,7 +38,7 @@ const projects = [
     category: "Web App"
   },
   {
-    id: 4,
+    id: 5,
     title: "Quiz Game",
     desc: "Flutter-based quiz game with timer, score tracking, and multiple categories.",
     img: "/assets/quiz_logo.png",
@@ -35,7 +46,7 @@ const projects = [
     category: "Mobile"
   },
   {
-    id: 5,
+    id: 6,
     title: "TicTacToe",
     desc: "Classic TicTacToe game built using HTML, CSS, and JavaScript.",
     img: "/assets/logo.jpeg",
@@ -43,7 +54,7 @@ const projects = [
     category: "Game"
   },
   {
-    id: 6,
+    id: 7,
     title: "PM Kitchen Chaos",
     desc: "Unity-based game focused on chaotic kitchen management.",
     img: "/assets/game_logo.png",
@@ -51,7 +62,7 @@ const projects = [
     category: "Game"
   },
   {
-    id: 7,
+    id: 8,
     title: "Memory Match Game",
     desc: "A fun memory matching game built with HTML, CSS, and JavaScript.",
     img: "/assets/Logo1.jpeg",
@@ -59,7 +70,7 @@ const projects = [
     category: "Game"
   },
   {
-    id: 8,
+    id: 9,
     title: "Python AI & Apps",
     desc: "AI chatbot, QR generator, calendar, and weather apps built using Python.",
     img: "/assets/python.png",
@@ -67,7 +78,7 @@ const projects = [
     category: "Python"
   },
   {
-    id: 9,
+    id: 10,
     title: "Bookmark Manager",
     desc: "Bookmark management tool with search and categorization features.",
     img: "/assets/Bookmark_Manager.png",
@@ -75,7 +86,7 @@ const projects = [
     category: "Web App"
   },
   {
-    id: 10,
+    id: 11,
     title: "PrajjwalGPT",
     desc: "Python-based personal AI assistant powered by OpenAI GPT models.",
     img: "/assets/PrajjwalGPT.jpeg",
@@ -83,7 +94,7 @@ const projects = [
     category: "AI"
   },
   {
-    id: 11,
+    id: 12,
     title: "FlappyVerse",
     desc: "Modern Flappy Bird with day/night cycles, shields, and smooth gameplay.",
     img: "/assets/flappybird.png",
@@ -91,7 +102,7 @@ const projects = [
     category: "Game"
   },
   {
-    id: 12,
+    id: 13,
     title: "Yatra-Z",
     desc: "All-in-one tourism platform with bookings, maps, itineraries, and local guides.",
     img: "/assets/Yatra-Z.png",
@@ -99,20 +110,12 @@ const projects = [
     category: "Web App"
   },
   {
-    id: 13,
+    id: 14,
     title: "CineQuest",
     desc: "Movie discovery app using TMDB API with search, favorites, and dark/light mode.",
     img: "/assets/cinema.jpg",
     link: "https://cinequest432.netlify.app/",
     category: "Web App"
-  },
-    {
-    id: 14,
-    title: "BridgeGuard",
-    desc: "BridgeGuard - An AI-powered bridge monitoring, disaster prediction, and evacuation management system that analyzes real-time sensor data to assess structural health, predict risks, and support emergency response decisions.",
-    img: "/assets/bridgeguard.png",
-    link: "https://github.com/Kodedristi-Software/national-ai-hackathon-2026-404-found",
-    category: "AI/ML Project"
   },
   {
     id: 15,
@@ -172,6 +175,7 @@ const categoryColors = {
   "Game": "#f59e0b",
   "Python": "#3b82f6",
   "AI": "#ec4899",
+  "AI/ML Project": "#d4a017",
   "Tool": "#64748b",
   "C/C++": "#64748b",
   "Java": "#f97316" 
@@ -254,7 +258,7 @@ export default function Projects(){
                 </div>
                 {p.highlight && (
                   <span className="highlight-badge">
-                    <span>🏆</span> Gold Medal
+                    <span>{p.awardLabel || 'Awarded'}</span>
                   </span>
                 )}
                 {p.category && (
@@ -286,7 +290,7 @@ export default function Projects(){
                   </a>
                   
                   {hoveredId === p.id && (
-                    <span className="hover-indicator">Click to open project →</span>
+                    <span className="hover-indicator">Open project</span>
                   )}
                 </div>
               </div>
@@ -490,7 +494,23 @@ export default function Projects(){
         }
 
         .project-card.highlight {
-          border: 2px solid #fbbf24;
+          border: 1px solid rgba(245, 180, 97, 0.72);
+          box-shadow: 0 18px 42px rgba(212, 160, 23, 0.16);
+        }
+
+        .project-card.highlight::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border: 1px solid rgba(245, 180, 97, 0.32);
+          pointer-events: none;
+          animation: awardPulse 2.4s ease-in-out infinite;
+          z-index: 2;
+        }
+
+        @keyframes awardPulse {
+          0%, 100% { opacity: 0.35; }
+          50% { opacity: 0.85; }
         }
 
         .card-glow {
@@ -591,7 +611,7 @@ export default function Projects(){
           position: absolute;
           top: 1rem;
           right: 1rem;
-          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          background: linear-gradient(135deg, #f8d97a, #d4a017);
           color: #0f172a;
           padding: 0.4rem 1rem;
           border-radius: 30px;
@@ -603,6 +623,12 @@ export default function Projects(){
           box-shadow: 0 4px 10px rgba(0,0,0,0.3);
           z-index: 3;
           backdrop-filter: blur(4px);
+          animation: badgeGlow 2.2s ease-in-out infinite;
+        }
+
+        @keyframes badgeGlow {
+          0%, 100% { box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 0 rgba(245, 180, 97, 0); }
+          50% { box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 18px rgba(245, 180, 97, 0.42); }
         }
 
         /* Card Body */

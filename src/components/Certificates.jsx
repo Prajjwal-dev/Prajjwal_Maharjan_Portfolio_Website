@@ -1,39 +1,17 @@
 import React, {useState, useMemo, useRef, useEffect} from 'react'
 import { Link } from "react-router-dom"
+import { certificates as certificateData } from '../data/certificates'
 
-const certificates = [
-  {img: `/assets/Gemini.PNG`, title: 'Gemini For Google Workspace', file: `/assets/Prajjwal_Maharjan_Gemini_for_Google_Workspace.pdf`},
-  {img: `/assets/copilot.PNG`, title: 'Github Copilot Fundamentals', file: `/assets/Prajjwal_Maharjan_GitHub_Copilot_Fundamentals.pdf`},
-  {img: `/assets/1.png`, title: 'Participation of Competitive Coding in KEC', file: `/assets/1.png`},
-  {img: `/assets/hamrobazaar.PNG`, title: 'Participation in Hamrobazaar Student Partnership Program', file: `/assets/HamroBazaar Programme Certificate.pdf`},
-  {img: `/assets/agile_scrum_master.PNG`, title: 'Agile Scrum Master', file: `/assets/Prajjwal_Maharjan_Agile_Scrum_Master.pdf`},
-  {img: `/assets/AI.PNG`, title: 'AI Certificate', file: `/assets/Prajjwal_Maharjan_AI Certificate.pdf`},
-  {img: `/assets/digital_transformation.PNG`, title: 'Digital Transformation For Leaders', file: `/assets/Prajjwal Maharjan_Digital_Transformation_For leaders.pdf`},
-  {img: `/assets/azure_fundamental.PNG`, title: 'Azure Fundamentals', file: `/assets/Prajjwal_Maharjan_Azure_Fundamentals.pdf`},
-  {img: `/assets/innovating_with_google_cloud_AI.PNG`, title: 'Innovating With Google Cloud AI', file: `/assets/Prajjwal_Maharjan_Innovating_with_Google_Cloud_AI.pdf`},
-  {img: `/assets/angular_basics.PNG`, title: 'Angular Basics', file: `/assets/Prajjwal_Maharjan_Angular_Basics.pdf`},
-  {img: `/assets/power_bi_for_beginners.PNG`, title: 'Power BI For Beginners', file: `/assets/Prajjwal_maharjan_Power_BI_Begineer.pdf`},
-  {img: `/assets/deep_learning.PNG`, title: 'Deep Learning', file: `/assets/Prajjwal_Maharjan_Deep_Learning.pdf`},
-  {img: `/assets/AWS.PNG`, title: 'Getting Started With AWS', file: `/assets/Prajjwal_Maharjan_Getting_Started_with_AWS.pdf`},
-  {img: `/assets/figma.PNG`, title: 'Introduction to Figma', file: `/assets/Prajjwal_Maharjan_Introduction_to_Figma_Course.pdf`},
-  {img: `/assets/SEO.PNG`, title: 'Introduction to SEO', file: `/assets/Prajjwal_Maharjan_Introduction_to_SEO.pdf`},
-  {img: `/assets/python_for_begineers.PNG`, title: 'Python for Beginners', file: `/assets/Prajjwal_Maharjan_Python_for_begineers.pdf`},
-  {img: `/assets/reactJS.PNG`, title: 'ReactJS for Beginners', file: `/assets/Prajjwal_Maharjan_ReactJS_for_Begineers.pdf`},
-  {img: `/assets/IoT.PNG`, title: 'Introduction to IoT', file: `/assets/Prajjwal_Maharjan_Introduction_to_IoT.pdf`},
-  {img: `/assets/kali_linux.PNG`, title: 'Introduction to Kali Linux Basics', file: `/assets/Prajjwal_maharjan_Introduction_to_Kali_linux.pdf`},
-  {img: `/assets/blockchain.PNG`, title: 'Blockchain Developer Training', file: `/assets/Prajjwal_Mahrarjan_Blockchain_developer_training.pdf`},
-  {img: `/assets/data_mining.PNG`, title: 'Introduction to Data Mining Course', file: `/assets/Prajjwal_Maharjan_Introduction_to_Data_Mining_Course.pdf`},
-  {img: `/assets/cryptography.PNG`, title: 'Introduction to Cryptography for Beginners', file: `/assets/Prajjwal_Maharjan_Introduction_to_Cryptography_for_Begineers.pdf`},
-  {img: `/assets/machine_learning.PNG`, title: 'Machine Learning Using Python', file: `/assets/Prajjwal_Maharjan_Machine_learning_using_Python.pdf`},
-  {img: `/assets/full_stack.PNG`, title: 'Getting Started with Full Stack Java Development', file: `/assets/Prajjwal_Maharjan_Getting Started with Full Stack Java Development.pdf`},
-  {img: `/assets/generative_ai.PNG`, title: 'Introduction to Generative AI', file: `/assets/Prajjwal_Maharjan_Introduction to Generative AI.pdf`},
-  {img: `/assets/GIT_training.PNG`, title: 'GIT Training', file: `/assets/Prajjwal_Maharjan_GIT.pdf`},
-  {img: `/assets/tensorflow.PNG`, title: 'TensorFlow for Beginners', file: `/assets/Prajjwal_Maharjan_TensorFlow for Beginners.pdf`},
-  {img: `/assets/mongodb.PNG`, title: 'Introduction to MongoDB', file: `/assets/Prajjwal_Maharjan_Introduction to MongoDB.pdf`},
-  {img: `/assets/php.PNG`, title: 'Introduction to PHP', file: `/assets/Prajjwal_Maharjan_Introduction to PHP.pdf`},
-  {img: `/assets/aws_technical_essential.PNG`, title: 'The AWS Technical Essentials', file: `/assets/Prajjwal_Maharjan_The AWS Technical Essentials.pdf`},
-  {img: `/assets/databricks_business_leaders.PNG`, title: 'Get Started with Data Bricks for Business Leaders', file: `/assets/Prajjwal_Maharjan_Get Started with Databricks for Business Leaders.pdf`}
-];
+const resolveAssetPath = (path) => encodeURI(path)
+
+const getFallbackLabel = (title) =>
+  title
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 3)
+    .map(word => word[0])
+    .join('')
+    .toUpperCase()
 
 export default function Certificates({limit = 9, showAll = false}) {
   const [query, setQuery] = useState('')
@@ -54,7 +32,7 @@ export default function Certificates({limit = 9, showAll = false}) {
 
   // Extract unique categories
   const categories = useMemo(() => {
-    const cats = certificates.map(c => {
+    const cats = certificateData.map(c => {
       const title = c.title.toLowerCase()
       if (title.includes('google') || title.includes('gemini')) return 'Google'
       if (title.includes('azure')) return 'Azure'
@@ -87,7 +65,7 @@ export default function Certificates({limit = 9, showAll = false}) {
   }
 
   const filtered = useMemo(() => {
-    let filtered = certificates
+    let filtered = certificateData
     if (selectedCategory !== 'All') {
       filtered = filtered.filter(c => getCategory(c.title) === selectedCategory)
     }
@@ -152,17 +130,35 @@ export default function Certificates({limit = 9, showAll = false}) {
         </select>
       </div>
 
-      <div style={fullPageStyles.stats}>📊 {filtered.length} certificates found</div>
+      <div style={fullPageStyles.stats}>{filtered.length} certificates found</div>
 
       <div ref={containerRef} style={fullPageStyles.grid}>
+        {filtered.length === 0 && (
+          <div style={{gridColumn: '1/-1', padding: '2rem', textAlign: 'center', color:'#94a3b8'}}>No certificates match your search or selected category.</div>
+        )}
         {filtered.map((c, idx) => (
-          <div key={idx} className="reveal" style={fullPageStyles.card} onClick={() => setPreview(c)}>
-            <img src={c.img} alt={c.title} style={fullPageStyles.cardImage} />
+          <div key={idx} className="reveal in-view" style={fullPageStyles.card} onClick={() => setPreview(c)}>
+            <img
+              src={resolveAssetPath(c.img)}
+              alt={c.title}
+              style={fullPageStyles.cardImage}
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+                const fallback = e.currentTarget.parentElement.querySelector('.img-fallback')
+                if (fallback) fallback.style.display = 'flex'
+              }}
+            />
+            <div className="img-fallback" style={{display:'none',height:'160px',alignItems:'center',justifyContent:'center',background:'#0f1720',color:'#94a3b8',flexDirection:'column',gap:'0.4rem'}}>
+              <span style={{fontSize:'1.2rem',fontWeight:700,color:'#6ea8fe'}}>{getFallbackLabel(c.title)}</span>
+              <span style={{fontSize:'0.75rem'}}>Preview not available</span>
+            </div>
             <div style={fullPageStyles.cardContent}>
               <h3 style={fullPageStyles.cardTitle}>{c.title}</h3>
+              <p style={fullPageStyles.cardMeta}>Certificate preview</p>
               <div style={fullPageStyles.cardButtons}>
-                <a href={c.file} target="_blank" style={fullPageStyles.openBtn}>Open</a>
-                <a href={c.file} download style={fullPageStyles.downloadBtn}>Download</a>
+                <a href={resolveAssetPath(c.file)} target="_blank" rel="noreferrer" style={fullPageStyles.openBtn} onClick={(e) => e.stopPropagation()}>Open</a>
+                <a href={resolveAssetPath(c.file)} download style={fullPageStyles.downloadBtn} onClick={(e) => e.stopPropagation()}>Download</a>
               </div>
             </div>
           </div>
@@ -174,12 +170,12 @@ export default function Certificates({limit = 9, showAll = false}) {
           <div style={fullPageStyles.modalContent} onClick={e => e.stopPropagation()}>
             <div style={fullPageStyles.modalHeader}>
               <h3>{preview.title}</h3>
-              <button onClick={() => setPreview(null)} style={fullPageStyles.closeBtn}>✕</button>
+              <button onClick={() => setPreview(null)} style={fullPageStyles.closeBtn}>X</button>
             </div>
-            <iframe src={preview.file} style={fullPageStyles.iframe} title={preview.title} />
+            <iframe src={resolveAssetPath(preview.file)} style={fullPageStyles.iframe} title={preview.title} />
             <div style={fullPageStyles.modalFooter}>
-              <a href={preview.file} target="_blank" style={fullPageStyles.openBtn}>Open</a>
-              <a href={preview.file} download style={fullPageStyles.downloadBtn}>Download</a>
+              <a href={resolveAssetPath(preview.file)} target="_blank" style={fullPageStyles.openBtn}>Open</a>
+              <a href={resolveAssetPath(preview.file)} download style={fullPageStyles.downloadBtn}>Download</a>
             </div>
           </div>
         </div>
@@ -193,11 +189,11 @@ export default function Certificates({limit = 9, showAll = false}) {
       <div style={compactStyles.header}>
         <div>
           <h2 style={compactStyles.title}>Certifications</h2>
-          <p style={compactStyles.subtitle}>Explore verified certificates — open or download any item.</p>
+          <p style={compactStyles.subtitle}>Explore verified certificates, open or download any item.</p>
         </div>
         {!showAll && (
           <Link to="/certificates" style={compactStyles.viewAllBtn}>
-            View All Certificates →
+            {'View All Certificates ->'}
           </Link>
         )}
       </div>
@@ -214,14 +210,32 @@ export default function Certificates({limit = 9, showAll = false}) {
       </div>
 
       <div ref={containerRef} style={compactStyles.grid}>
+        {list.length === 0 && (
+          <div style={{gridColumn: '1/-1', padding: '1.5rem', textAlign: 'center', color:'#94a3b8'}}>No certificates to show here.</div>
+        )}
         {list.map((c, idx) => (
           <div key={idx} className="reveal" style={compactStyles.card} onClick={() => setPreview(c)}>
-            <img src={c.img} alt={c.title} style={compactStyles.cardImage} />
+            <img
+              src={resolveAssetPath(c.img)}
+              alt={c.title}
+              style={compactStyles.cardImage}
+              loading="lazy"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none'
+                const fallback = e.currentTarget.parentElement.querySelector('.img-fallback')
+                if (fallback) fallback.style.display = 'flex'
+              }}
+            />
+            <div className="img-fallback" style={{display:'none',height:'160px',alignItems:'center',justifyContent:'center',background:'#0f1720',color:'#94a3b8',flexDirection:'column',gap:'0.4rem'}}>
+              <span style={{fontSize:'1.2rem',fontWeight:700,color:'#6ea8fe'}}>{getFallbackLabel(c.title)}</span>
+              <span style={{fontSize:'0.75rem'}}>Preview not available</span>
+            </div>
             <div style={compactStyles.cardContent}>
               <h3 style={compactStyles.cardTitle}>{c.title}</h3>
+              <p style={compactStyles.cardMeta}>Certificate preview</p>
               <div style={compactStyles.cardButtons}>
-                <a href={c.file} target="_blank" style={compactStyles.openBtn}>Open</a>
-                <a href={c.file} download style={compactStyles.downloadBtn}>Download</a>
+                <a href={resolveAssetPath(c.file)} target="_blank" rel="noreferrer" style={compactStyles.openBtn} onClick={(e) => e.stopPropagation()}>Open</a>
+                <a href={resolveAssetPath(c.file)} download style={compactStyles.downloadBtn} onClick={(e) => e.stopPropagation()}>Download</a>
               </div>
             </div>
           </div>
@@ -233,12 +247,12 @@ export default function Certificates({limit = 9, showAll = false}) {
           <div style={compactStyles.modalContent} onClick={e => e.stopPropagation()}>
             <div style={compactStyles.modalHeader}>
               <h3>{preview.title}</h3>
-              <button onClick={() => setPreview(null)} style={compactStyles.closeBtn}>✕</button>
+              <button onClick={() => setPreview(null)} style={compactStyles.closeBtn}>X</button>
             </div>
-            <iframe src={preview.file} style={compactStyles.iframe} title={preview.title} />
+            <iframe src={resolveAssetPath(preview.file)} style={compactStyles.iframe} title={preview.title} />
             <div style={compactStyles.modalFooter}>
-              <a href={preview.file} target="_blank" style={compactStyles.openBtn}>Open</a>
-              <a href={preview.file} download style={compactStyles.downloadBtn}>Download</a>
+              <a href={resolveAssetPath(preview.file)} target="_blank" style={compactStyles.openBtn}>Open</a>
+              <a href={resolveAssetPath(preview.file)} download style={compactStyles.downloadBtn}>Download</a>
             </div>
           </div>
         </div>
@@ -320,6 +334,11 @@ export default function Certificates({limit = 9, showAll = false}) {
       fontSize: '1rem',
       fontWeight: 600,
       color: '#ffffff',
+      marginBottom: '0.35rem',
+    },
+    cardMeta: {
+      color: '#94a3b8',
+      fontSize: '0.78rem',
       marginBottom: '1rem',
     },
     cardButtons: {
@@ -491,6 +510,11 @@ export default function Certificates({limit = 9, showAll = false}) {
       fontSize: '1rem',
       fontWeight: 600,
       color: '#ffffff',
+      marginBottom: '0.35rem',
+    },
+    cardMeta: {
+      color: '#94a3b8',
+      fontSize: '0.78rem',
       marginBottom: '1rem',
     },
     cardButtons: {

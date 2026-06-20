@@ -300,6 +300,8 @@ export default function Certificates({limit = 9, showAll = false}) {
     },
     searchInput: {
       width: '100%',
+      minWidth: 0,
+      boxSizing: 'border-box',
       padding: '0.8rem 1rem',
       background: '#151a20',
       border: '1px solid #2d3748',
@@ -458,6 +460,9 @@ export default function Certificates({limit = 9, showAll = false}) {
     },
     searchInput: {
       flex: 1,
+      minWidth: 0,
+      width: '100%',
+      boxSizing: 'border-box',
       padding: '0.8rem 1rem',
       background: '#151a20',
       border: '1px solid #2d3748',
@@ -595,7 +600,7 @@ export default function Certificates({limit = 9, showAll = false}) {
     },
   }
 
-  return showAll ? <FullPageView /> : <CompactView />
+  return showAll ? FullPageView() : CompactView()
 }
 
 // Add global animation style

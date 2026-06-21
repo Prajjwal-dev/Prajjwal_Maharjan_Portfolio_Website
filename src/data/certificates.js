@@ -1,5 +1,6 @@
 // Migrated from certificate.html — each entry maps image -> file
 export const certificates = [
+  { img: '/assets/ncit_hackathon.PNG', title: 'Winning National AI Hackathon 26', file: '/assets/ncit_hackathon.PNG' },
   { img: '/assets/Gemini.PNG', title: 'Gemini For Google Workspace', file: '/assets/Prajjwal_Maharjan_Gemini_for_Google_Workspace.pdf' },
   { img: '/assets/1.png', title: 'Participation of Competitive Coding in KEC', file: '/assets/1.png' },
   { img: '/assets/hamrobazaar.PNG', title: 'Participation in Hamrobazaar Student Partnership Program', file: '/assets/HamroBazaar Programme Certificate.pdf' },
